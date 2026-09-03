@@ -1,0 +1,846 @@
+/* ============================================================
+   ANIMATIONS.CSS — Comprehensive Keyframes & Component Animation Suite
+   ============================================================ */
+
+/* ── 1. Core Keyframes ─────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(35px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-35px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(35px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes floatGentle {
+  0%, 100% { transform: translateY(0px); }
+  50%      { transform: translateY(-10px); }
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  33%      { transform: translateY(-8px) rotate(1deg); }
+  66%      { transform: translateY(-4px) rotate(-1deg); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 15px var(--glow-color); }
+  50%      { box-shadow: 0 0 35px var(--glow-color), 0 0 60px var(--glow-color); }
+}
+
+@keyframes radarPing {
+  0%   { transform: scale(1); opacity: 0.9; }
+  100% { transform: scale(2.8); opacity: 0; }
+}
+
+@keyframes orbitCW {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes orbitCCW {
+  from { transform: rotate(360deg); }
+  to   { transform: rotate(0deg); }
+}
+
+@keyframes sheenSweep {
+  0%   { transform: translateX(-150%) skewX(-25deg); }
+  100% { transform: translateX(250%) skewX(-25deg); }
+}
+
+@keyframes laserScan {
+  0%   { top: 0%; opacity: 0.8; }
+  50%  { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes blinkCursor {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0; }
+}
+
+@keyframes iconWiggle {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  25%      { transform: rotate(-10deg) scale(1.1); }
+  75%      { transform: rotate(10deg) scale(1.1); }
+}
+
+@keyframes borderLightRun {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+@keyframes lineFlow {
+  0%   { background-position: 0% 0%; }
+  100% { background-position: 0% 200%; }
+}
+
+@keyframes starGlint {
+  0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.7; }
+  50%      { transform: scale(1.3) rotate(45deg); opacity: 1; filter: drop-shadow(0 0 8px var(--accent)); }
+}
+
+/* ── 2. Navigation Animations ──────────────────────────────── */
+.nav-logo .logo-dot {
+  position: relative;
+}
+
+.nav-logo .logo-dot::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.6;
+  animation: radarPing 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+  pointer-events: none;
+}
+
+.nav-link {
+  position: relative;
+  transition: color var(--transition-fast), transform var(--transition-fast);
+}
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 100%;
+  height: 2px;
+  background: var(--gradient-accent);
+  border-radius: var(--radius-full);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-origin: center;
+}
+
+.nav-link:hover::before,
+.nav-link.active::before {
+  transform: translateX(-50%) scaleX(1);
+}
+
+.nav-link:hover {
+  transform: translateY(-1px);
+}
+
+.theme-toggle-btn i {
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.theme-toggle-btn:hover i {
+  transform: rotate(45deg) scale(1.15);
+}
+
+/* ── 3. Hero Section Animations ────────────────────────────── */
+.hero-name {
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% auto;
+  animation: heroGradientShift 6s ease-in-out infinite;
+}
+
+.typed-cursor {
+  display: inline-block;
+  width: 3px;
+  height: 1.15em;
+  background: var(--accent);
+  margin-left: 4px;
+  vertical-align: -2px;
+  animation: blinkCursor 0.9s infinite;
+}
+
+
+
+.profile-frame {
+  animation: floatGentle 5s ease-in-out infinite;
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.profile-frame:hover {
+  transform: scale(1.03) translateY(-6px);
+}
+
+.profile-badge {
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 0 20px var(--glow-color);
+}
+
+.profile-badge .status-dot::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+  animation: radarPing 2s infinite;
+}
+
+/* Button Liquid Sheen Sweep */
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+  transform: translateX(-150%) skewX(-25deg);
+  animation: sheenSweep 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.btn-icon {
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-icon:hover {
+  transform: translateY(-4px) scale(1.12);
+  border-color: var(--accent);
+  box-shadow: 0 8px 25px var(--glow-color);
+}
+
+.btn-icon:hover svg,
+.btn-icon:hover i {
+  animation: iconWiggle 0.6s ease;
+}
+
+/* ── 4. Spotlight & 3D Tilt Cards ──────────────────────────── */
+.spotlight-card {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition-base),
+              transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
+}
+
+.spotlight-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    var(--spotlight-size) circle at var(--mouse-x, -9999px) var(--mouse-y, -9999px),
+    var(--spotlight-color),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  z-index: 1;
+}
+
+.spotlight-card:hover::before {
+  opacity: 1;
+}
+
+.spotlight-card:hover {
+  border-color: var(--border-accent);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.35), 0 0 25px var(--glow-color);
+}
+
+/* ── 5. Skill Cards & Technology Matrix ────────────────────── */
+.skill-card .skill-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  background: var(--accent-subtle);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+              background-color var(--transition-fast),
+              box-shadow var(--transition-fast);
+}
+
+.skill-card:hover .skill-icon {
+  transform: translateY(-4px) rotate(6deg) scale(1.1);
+  background: var(--gradient-accent);
+  color: #fff;
+  box-shadow: 0 8px 24px var(--glow-color);
+}
+
+.skill-tag {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.skill-tag:hover {
+  transform: translateY(-2px) scale(1.05);
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-subtle);
+  box-shadow: 0 4px 12px var(--glow-color);
+}
+
+/* ── 6. Live API Sandbox Laser Stream ──────────────────────── */
+.api-code-window {
+  position: relative;
+  overflow: hidden;
+}
+
+.api-code-window::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  top: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.api-code-window.executing::after {
+  opacity: 1;
+  animation: laserScan 0.8s ease-in-out infinite;
+}
+
+.api-tab-btn {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.api-tab-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.status-dot.ready {
+  background: #38bdf8;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
+}
+
+.status-dot.pending {
+  background: #f59e0b;
+  animation: pulseGlow 0.8s infinite;
+}
+
+.status-dot.success {
+  background: #10b981;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.7);
+}
+
+/* ── 7. Featured Projects Card Hover Effects ───────────────── */
+.project-card .project-image {
+  overflow: hidden;
+  position: relative;
+}
+
+.project-card .project-image img {
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+}
+
+.project-card:hover .project-image img {
+  transform: scale(1.07);
+}
+
+.project-view-details-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--accent);
+  transition: gap 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  margin-top: 18px;
+}
+
+.project-view-details-link i {
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.project-card:hover .project-view-details-link {
+  gap: 12px;
+}
+
+.project-card:hover .project-view-details-link i {
+  transform: translateX(4px);
+}
+
+.filter-btn {
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.filter-btn:hover {
+  transform: translateY(-2px);
+}
+
+.filter-btn.active {
+  box-shadow: 0 4px 18px var(--glow-color);
+}
+
+/* ── 8. Timeline & Career Path Flow ────────────────────────── */
+.timeline {
+  position: relative;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  background: linear-gradient(180deg, var(--accent) 0%, var(--accent-secondary) 50%, var(--border) 100%);
+  background-size: 100% 200%;
+  animation: lineFlow 6s linear infinite;
+}
+
+.timeline-dot {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--bg-primary);
+  border: 3px solid var(--accent);
+  z-index: 2;
+  transition: all 0.4s ease;
+}
+
+.timeline-item:hover .timeline-dot {
+  transform: translateX(-50%) scale(1.4);
+  background: var(--accent);
+  box-shadow: 0 0 20px var(--glow-color);
+}
+
+.timeline-dot::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1.5px solid var(--accent);
+  opacity: 0;
+  animation: radarPing 2.5s infinite;
+}
+
+.timeline-item:hover .timeline-dot::after {
+  opacity: 1;
+}
+
+/* ── 9. Stats & Counters ───────────────────────────────────── */
+.about-stats .stat-item {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.about-stats .stat-item:hover {
+  transform: translateY(-6px) scale(1.02);
+  border-color: var(--border-accent);
+}
+
+.about-stats .stat-number {
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  font-weight: 800;
+  font-family: var(--font-heading);
+}
+
+/* ── 10. Education & Verified Credentials ──────────────────── */
+.cert-card .cert-icon-wrapper {
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
+}
+
+.cert-card:hover .cert-icon-wrapper {
+  transform: scale(1.15) rotate(8deg);
+  box-shadow: 0 8px 24px var(--glow-color);
+}
+
+.cert-card:hover .cert-issuer i {
+  animation: starGlint 1s ease infinite;
+}
+
+/* ── 11. Contact Channel Cards & Form Inputs ───────────────── */
+.contact-action-card {
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.contact-action-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-accent);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25), 0 0 20px var(--glow-color);
+}
+
+.contact-action-card:hover .contact-card-icon {
+  transform: scale(1.12);
+}
+
+.contact-card-action-btn {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.contact-card-action-btn:hover {
+  transform: scale(1.06);
+  background: var(--accent-subtle);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-subtle), 0 0 20px var(--glow-color);
+  transform: translateY(-1px);
+}
+
+/* ── 12. Custom Cursor & Click Ripple ──────────────────────── */
+.custom-cursor-dot {
+  position: fixed;
+  top: -4px;
+  left: -4px;
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate3d(-100px, -100px, 0);
+  transition: transform 0.05s linear;
+}
+
+.custom-cursor-ring {
+  position: fixed;
+  top: -18px;
+  left: -18px;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99998;
+  opacity: 0.6;
+  transform: translate3d(-100px, -100px, 0);
+  transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease, opacity 0.3s ease, background 0.3s ease;
+}
+
+.custom-cursor-ring.hovering {
+  opacity: 0.3;
+  background: var(--accent-subtle);
+  border-color: var(--accent-secondary);
+}
+
+.cursor-click-ripple {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99997;
+  transform: translate(-50%, -50%) scale(0);
+  animation: radarPing 0.6s cubic-bezier(0, 0, 0.2, 1) forwards;
+}
+
+@media (pointer: coarse), (max-width: 992px) {
+  .custom-cursor-dot, .custom-cursor-ring, .cursor-click-ripple { display: none !important; }
+}
+
+/* ── 13. Scroll-Triggered Animation Classes (Safe Default Visible) ── */
+.reveal,
+.reveal-left,
+.reveal-right,
+.reveal-scale {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.revealed,
+.reveal-left.revealed,
+.reveal-right.revealed,
+.reveal-scale.revealed {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Stagger Delays */
+.stagger-1 { transition-delay: 0.07s; }
+.stagger-2 { transition-delay: 0.14s; }
+.stagger-3 { transition-delay: 0.21s; }
+.stagger-4 { transition-delay: 0.28s; }
+.stagger-5 { transition-delay: 0.35s; }
+.stagger-6 { transition-delay: 0.42s; }
+
+/* ── 14. Command Palette Animations ────────────────────────── */
+.command-palette-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.68);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 9999;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 14vh;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.command-palette-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.command-palette-card {
+  width: 100%;
+  max-width: 620px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-hover);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.5), 0 0 35px var(--glow-color);
+  overflow: hidden;
+  transform: scale(0.94) translateY(-12px);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.command-palette-backdrop.open .command-palette-card {
+  transform: scale(1) translateY(0);
+}
+
+/* ── 15. Toast Feedback Notification ───────────────────────── */
+.portfolio-toast {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  padding: 14px 22px;
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border-accent);
+  border-radius: var(--radius-full);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35), 0 0 20px var(--glow-color);
+  font-size: 0.92rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 99999;
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+  pointer-events: none;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.portfolio-toast.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+/* ── 16. Theme Transition Smoothness ───────────────────────── */
+.theme-transitioning,
+.theme-transitioning *,
+.theme-transitioning *::before,
+.theme-transitioning *::after {
+  transition: background-color 0.45s ease,
+              border-color 0.45s ease,
+              color 0.35s ease,
+              box-shadow 0.45s ease !important;
+}
+
+/* ═════════════════════════════════════════════════════════════
+   17. REACT BITS (reactbits.dev) SIGNATURE ANIMATIONS & DOCK
+   ═════════════════════════════════════════════════════════════ */
+
+/* ── React Bits: Floating macOS Interactive Dock ───────────── */
+.react-bits-dock {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
+  pointer-events: none;
+}
+
+.dock-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-hover);
+  border-radius: var(--radius-full);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4), 0 0 24px var(--glow-color);
+  pointer-events: auto;
+  transition: padding 0.3s ease;
+}
+
+.dock-item {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  transform-origin: bottom center;
+}
+
+.dock-item:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--bg-surface-hover);
+}
+
+.dock-item::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: -38px;
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-hover);
+  padding: 4px 10px;
+  border-radius: var(--radius-xs);
+  font-size: 0.74rem;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+  pointer-events: none;
+  box-shadow: var(--shadow-sm);
+}
+
+.dock-item:hover::after {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+.dock-separator {
+  width: 1px;
+  height: 24px;
+  background: var(--border);
+  margin: 0 4px;
+}
+
+@media (max-width: 992px) {
+  .react-bits-dock {
+    display: none;
+  }
+}
+
+/* ── React Bits: ShinyText Shimmer Keyframe ────────────────── */
+@keyframes shinyTextSweep {
+  0% {
+    background-position: 100% center;
+  }
+  100% {
+    background-position: -100% center;
+  }
+}
+
+.shiny-text {
+  display: inline-block;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* ── React Bits: StarBorder Animated Conic Glow ────────────── */
+.star-border {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.star-border-glow {
+  position: absolute;
+  inset: -150%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 70deg,
+    var(--accent) 90deg,
+    transparent 110deg,
+    transparent 360deg
+  );
+  animation: rotateStarBorder 5s linear infinite;
+  z-index: -1;
+  opacity: 0.7;
+}
+
+@keyframes rotateStarBorder {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* ── React Bits: DecryptedText Typography ──────────────────── */
+.react-bits-decrypt {
+  display: inline-block;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.react-bits-decrypt:hover {
+  color: var(--accent);
+}

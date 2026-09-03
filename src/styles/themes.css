@@ -1,0 +1,309 @@
+/* ============================================================
+   THEMES.CSS — 5 Curated Luxury Themes (Dark & Light Presets)
+   ============================================================ */
+
+/* ── Base / Shared Tokens ──────────────────────────────────── */
+:root {
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'Fira Code', 'Cascadia Code', 'JetBrains Mono', monospace;
+
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 20px 48px rgba(0, 0, 0, 0.22);
+  --shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.15);
+
+  --transition-fast: 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+  --transition-base: 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+  --transition-smooth: 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-spring: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --container-max: 1240px;
+  --nav-height: 72px;
+
+  --spotlight-size: 450px;
+  --spotlight-opacity: 0.12;
+}
+
+/* ════════════════════════════════════════════════════════════
+   1. MIDNIGHT EMERALD (Default Dark)
+   ════════════════════════════════════════════════════════════ */
+[data-theme="midnight"],
+:root {
+  --theme-mode: dark;
+  --bg-primary: #080c14;
+  --bg-secondary: #0e1422;
+  --bg-surface: #141c2e;
+  --bg-surface-hover: #1c263e;
+  --bg-card: rgba(18, 26, 44, 0.72);
+  --bg-card-hover: rgba(26, 38, 64, 0.88);
+  --bg-glass: rgba(14, 20, 34, 0.85);
+
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-tertiary: #64748b;
+  --text-inverse: #080c14;
+
+  --accent: #10b981;
+  --accent-rgb: 16, 185, 129;
+  --accent-hover: #059669;
+  --accent-subtle: rgba(16, 185, 129, 0.12);
+  --accent-secondary: #38bdf8;
+  --accent-secondary-rgb: 56, 189, 248;
+
+  --border: rgba(148, 163, 184, 0.12);
+  --border-hover: rgba(148, 163, 184, 0.28);
+  --border-accent: rgba(16, 185, 129, 0.35);
+
+  --gradient-hero: radial-gradient(circle at 50% 0%, #162035 0%, #0e1422 50%, #080c14 100%);
+  --gradient-accent: linear-gradient(135deg, #10b981 0%, #38bdf8 100%);
+  --gradient-card: linear-gradient(145deg, rgba(20, 28, 46, 0.85), rgba(12, 18, 30, 0.6));
+  --gradient-text: linear-gradient(135deg, #10b981 0%, #38bdf8 50%, #818cf8 100%);
+
+  --particle-color: rgba(16, 185, 129, 0.45);
+  --particle-line: rgba(56, 189, 248, 0.09);
+  --glow-color: rgba(16, 185, 129, 0.18);
+  --spotlight-color: rgba(16, 185, 129, 0.15);
+
+  --nav-bg: rgba(8, 12, 20, 0.82);
+  --nav-border: rgba(148, 163, 184, 0.1);
+
+  --scrollbar-track: #080c14;
+  --scrollbar-thumb: #1e293b;
+  --scrollbar-thumb-hover: #334155;
+
+  --code-bg: #0b101b;
+  --terminal-header: #141c2e;
+}
+
+/* ════════════════════════════════════════════════════════════
+   2. CLEAN PEARL (Crisp Minimalist Light)
+   ════════════════════════════════════════════════════════════ */
+[data-theme="clean-light"] {
+  --theme-mode: light;
+  --bg-primary: #f8fafc;
+  --bg-secondary: #f1f5f9;
+  --bg-surface: #ffffff;
+  --bg-surface-hover: #e2e8f0;
+  --bg-card: rgba(255, 255, 255, 0.92);
+  --bg-card-hover: #ffffff;
+  --bg-glass: rgba(248, 250, 252, 0.88);
+
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-tertiary: #64748b;
+  --text-inverse: #ffffff;
+
+  --accent: #059669;
+  --accent-rgb: 5, 150, 105;
+  --accent-hover: #047857;
+  --accent-subtle: rgba(5, 150, 105, 0.1);
+  --accent-secondary: #0284c7;
+  --accent-secondary-rgb: 2, 132, 199;
+
+  --border: rgba(15, 23, 42, 0.09);
+  --border-hover: rgba(15, 23, 42, 0.2);
+  --border-accent: rgba(5, 150, 105, 0.35);
+
+  --gradient-hero: radial-gradient(circle at 50% 0%, #e2e8f0 0%, #f1f5f9 50%, #f8fafc 100%);
+  --gradient-accent: linear-gradient(135deg, #059669 0%, #0284c7 100%);
+  --gradient-card: linear-gradient(145deg, #ffffff, #f8fafc);
+  --gradient-text: linear-gradient(135deg, #059669 0%, #0284c7 50%, #4338ca 100%);
+
+  --particle-color: rgba(5, 150, 105, 0.4);
+  --particle-line: rgba(2, 132, 199, 0.12);
+  --glow-color: rgba(5, 150, 105, 0.12);
+  --spotlight-color: rgba(5, 150, 105, 0.08);
+
+  --nav-bg: rgba(248, 250, 252, 0.85);
+  --nav-border: rgba(15, 23, 42, 0.08);
+
+  --scrollbar-track: #f1f5f9;
+  --scrollbar-thumb: #cbd5e1;
+  --scrollbar-thumb-hover: #94a3b8;
+
+  --code-bg: #0f172a;
+  --terminal-header: #1e293b;
+}
+
+/* ════════════════════════════════════════════════════════════
+   3. NORDIC FROST (Arctic Slate Dark)
+   ════════════════════════════════════════════════════════════ */
+[data-theme="nordic"] {
+  --theme-mode: dark;
+  --bg-primary: #0b1118;
+  --bg-secondary: #111a24;
+  --bg-surface: #172332;
+  --bg-surface-hover: #203144;
+  --bg-card: rgba(23, 35, 50, 0.75);
+  --bg-card-hover: rgba(32, 49, 68, 0.9);
+  --bg-glass: rgba(17, 26, 36, 0.85);
+
+  --text-primary: #f0f6fc;
+  --text-secondary: #9db2c7;
+  --text-tertiary: #627b96;
+  --text-inverse: #0b1118;
+
+  --accent: #38bdf8;
+  --accent-rgb: 56, 189, 248;
+  --accent-hover: #0ea5e9;
+  --accent-subtle: rgba(56, 189, 248, 0.12);
+  --accent-secondary: #818cf8;
+  --accent-secondary-rgb: 129, 140, 248;
+
+  --border: rgba(157, 178, 199, 0.14);
+  --border-hover: rgba(157, 178, 199, 0.3);
+  --border-accent: rgba(56, 189, 248, 0.4);
+
+  --gradient-hero: radial-gradient(circle at 50% 0%, #172a3e 0%, #111a24 50%, #0b1118 100%);
+  --gradient-accent: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+  --gradient-card: linear-gradient(145deg, rgba(23, 35, 50, 0.85), rgba(17, 26, 36, 0.6));
+  --gradient-text: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
+
+  --particle-color: rgba(56, 189, 248, 0.45);
+  --particle-line: rgba(129, 140, 248, 0.1);
+  --glow-color: rgba(56, 189, 248, 0.2);
+  --spotlight-color: rgba(56, 189, 248, 0.15);
+
+  --nav-bg: rgba(11, 17, 24, 0.85);
+  --nav-border: rgba(157, 178, 199, 0.12);
+
+  --scrollbar-track: #0b1118;
+  --scrollbar-thumb: #203144;
+  --scrollbar-thumb-hover: #334d6b;
+
+  --code-bg: #0d1520;
+  --terminal-header: #172332;
+}
+
+/* ════════════════════════════════════════════════════════════
+   4. WARM EDITORIAL (Warm Champagne & Amber Light)
+   ════════════════════════════════════════════════════════════ */
+[data-theme="warm-paper"] {
+  --theme-mode: light;
+  --bg-primary: #faf7f2;
+  --bg-secondary: #f3ede4;
+  --bg-surface: #ffffff;
+  --bg-surface-hover: #eae1d3;
+  --bg-card: rgba(255, 255, 255, 0.94);
+  --bg-card-hover: #ffffff;
+  --bg-glass: rgba(250, 247, 242, 0.9);
+
+  --text-primary: #292524;
+  --text-secondary: #57534e;
+  --text-tertiary: #78716c;
+  --text-inverse: #ffffff;
+
+  --accent: #d97706;
+  --accent-rgb: 217, 119, 6;
+  --accent-hover: #b45309;
+  --accent-subtle: rgba(217, 119, 6, 0.1);
+  --accent-secondary: #e11d48;
+  --accent-secondary-rgb: 225, 29, 72;
+
+  --border: rgba(41, 37, 36, 0.1);
+  --border-hover: rgba(41, 37, 36, 0.22);
+  --border-accent: rgba(217, 119, 6, 0.4);
+
+  --gradient-hero: radial-gradient(circle at 50% 0%, #fef3c7 0%, #f3ede4 50%, #faf7f2 100%);
+  --gradient-accent: linear-gradient(135deg, #d97706 0%, #e11d48 100%);
+  --gradient-card: linear-gradient(145deg, #ffffff, #faf7f2);
+  --gradient-text: linear-gradient(135deg, #b45309 0%, #d97706 50%, #e11d48 100%);
+
+  --particle-color: rgba(217, 119, 6, 0.4);
+  --particle-line: rgba(225, 29, 72, 0.1);
+  --glow-color: rgba(217, 119, 6, 0.14);
+  --spotlight-color: rgba(217, 119, 6, 0.08);
+
+  --nav-bg: rgba(250, 247, 242, 0.88);
+  --nav-border: rgba(41, 37, 36, 0.08);
+
+  --scrollbar-track: #f3ede4;
+  --scrollbar-thumb: #d6cbbe;
+  --scrollbar-thumb-hover: #b5a494;
+
+  --code-bg: #1c1917;
+  --terminal-header: #292524;
+}
+
+/* ════════════════════════════════════════════════════════════
+   5. CYBER NEON (Midnight Violet & Neon Magenta Dark)
+   ════════════════════════════════════════════════════════════ */
+[data-theme="cyber-neon"] {
+  --theme-mode: dark;
+  --bg-primary: #0a0614;
+  --bg-secondary: #120a24;
+  --bg-surface: #1b0e36;
+  --bg-surface-hover: #26144c;
+  --bg-card: rgba(27, 14, 54, 0.72);
+  --bg-card-hover: rgba(38, 20, 76, 0.88);
+  --bg-glass: rgba(18, 10, 36, 0.85);
+
+  --text-primary: #faf5ff;
+  --text-secondary: #d8b4fe;
+  --text-tertiary: #9333ea;
+  --text-inverse: #0a0614;
+
+  --accent: #c084fc;
+  --accent-rgb: 192, 132, 252;
+  --accent-hover: #a855f7;
+  --accent-subtle: rgba(192, 132, 252, 0.15);
+  --accent-secondary: #f43f5e;
+  --accent-secondary-rgb: 244, 63, 94;
+
+  --border: rgba(216, 180, 254, 0.14);
+  --border-hover: rgba(216, 180, 254, 0.3);
+  --border-accent: rgba(192, 132, 252, 0.4);
+
+  --gradient-hero: radial-gradient(circle at 50% 0%, #281452 0%, #120a24 50%, #0a0614 100%);
+  --gradient-accent: linear-gradient(135deg, #c084fc 0%, #f43f5e 100%);
+  --gradient-card: linear-gradient(145deg, rgba(27, 14, 54, 0.85), rgba(18, 10, 36, 0.6));
+  --gradient-text: linear-gradient(135deg, #c084fc 0%, #f43f5e 50%, #38bdf8 100%);
+
+  --particle-color: rgba(192, 132, 252, 0.5);
+  --particle-line: rgba(244, 63, 94, 0.12);
+  --glow-color: rgba(192, 132, 252, 0.22);
+  --spotlight-color: rgba(192, 132, 252, 0.18);
+
+  --nav-bg: rgba(10, 6, 20, 0.85);
+  --nav-border: rgba(216, 180, 254, 0.12);
+
+  --scrollbar-track: #0a0614;
+  --scrollbar-thumb: #26144c;
+  --scrollbar-thumb-hover: #3b1d75;
+
+  --code-bg: #0d071a;
+  --terminal-header: #1b0e36;
+}
+
+/* ── Light Mode Enhanced Shadow & Contrast Overrides ───────── */
+[data-theme="clean-light"] .spotlight-card,
+[data-theme="warm-paper"] .spotlight-card,
+[data-theme="clean-light"] .project-card,
+[data-theme="warm-paper"] .project-card,
+[data-theme="clean-light"] .skill-card,
+[data-theme="warm-paper"] .skill-card,
+[data-theme="clean-light"] .timeline-card,
+[data-theme="warm-paper"] .timeline-card,
+[data-theme="clean-light"] .edu-card,
+[data-theme="warm-paper"] .edu-card,
+[data-theme="clean-light"] .cert-card,
+[data-theme="warm-paper"] .cert-card,
+[data-theme="clean-light"] .contact-action-card,
+[data-theme="warm-paper"] .contact-action-card,
+[data-theme="clean-light"] .api-playground-card,
+[data-theme="warm-paper"] .api-playground-card {
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.04);
+}
+
+[data-theme="clean-light"] .btn-secondary,
+[data-theme="warm-paper"] .btn-secondary {
+  border-color: rgba(15, 23, 42, 0.18);
+}
