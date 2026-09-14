@@ -355,23 +355,51 @@ export const Hero = () => {
                   <div className="executive-role-pill">Full Stack Engineer</div>
                 </div>
 
-                {/* Squircle Framed Portrait with Lighting Sheen */}
-                <div className="executive-portrait-wrapper">
-                  <div className="portrait-squircle-ring">
-                    <img
-                      src={PORTFOLIO_CONFIG.profileImage}
-                      alt={`${PORTFOLIO_CONFIG.name} — Full Stack Developer`}
-                      className="executive-portrait-img"
-                      loading="eager"
-                    />
-                    <div className="portrait-sheen"></div>
+                {/* Executive Developer Identity Badge (Replaces image with luxury nameplate & emblem) */}
+                <div className="hero-identity-centerpiece">
+                  {/* Monogram Seal with Animated Rings */}
+                  <div className="architect-seal-wrapper">
+                    <div className="architect-seal-orbit">
+                      <div className="architect-seal-glyph">SK</div>
+                      <div className="architect-seal-ring"></div>
+                      <div className="architect-seal-pulse"></div>
+                    </div>
                   </div>
-                </div>
 
-                {/* Developer Identity */}
-                <div className="executive-identity">
-                  <h3 className="executive-name">{PORTFOLIO_CONFIG.name}</h3>
-                  <p className="executive-spec">Full Stack Python &amp; Next.js Architecture</p>
+                  {/* Prominent Name & Verification */}
+                  <div className="architect-identity-block">
+                    <div className="architect-verified-tag">
+                      <Sparkles size={13} className="verified-shield-icon" />
+                      <span>VERIFIED SYSTEMS ARCHITECT</span>
+                    </div>
+                    <h3 className="architect-primary-name">{PORTFOLIO_CONFIG.name}</h3>
+                    <p className="architect-primary-role">Full Stack Python &amp; Next.js Architecture</p>
+                    <div className="architect-meta-bar">
+                      <span className="architect-meta-item">Malappuram, India</span>
+                      <span className="architect-meta-divider">•</span>
+                      <span className="architect-meta-item">Enterprise ERP &amp; AI</span>
+                      <span className="architect-meta-divider">•</span>
+                      <span className="architect-meta-item highlight">Available</span>
+                    </div>
+                  </div>
+
+                  {/* Micro-Telemetry Specs Strip */}
+                  <div className="architect-quick-metrics">
+                    <div className="quick-metric">
+                      <span className="metric-val">&lt; 45ms</span>
+                      <span className="metric-lbl">P95 Query</span>
+                    </div>
+                    <div className="metric-sep"></div>
+                    <div className="quick-metric">
+                      <span className="metric-val">30+ FPS</span>
+                      <span className="metric-lbl">YOLOv8 AI</span>
+                    </div>
+                    <div className="metric-sep"></div>
+                    <div className="quick-metric">
+                      <span className="metric-val">Postgres 16</span>
+                      <span className="metric-lbl">Multi-Tenant</span>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Redesigned Core Competency Titles Dock */}

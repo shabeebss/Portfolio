@@ -454,17 +454,20 @@ export const Skills = () => {
             <div className="orbit-ring orbit-ring-inner"></div>
           </div>
 
-          {/* Center Standing Portrait Cutout */}
-          <div className="universe-center-anchor">
+          {/* Center Architectural Monogram & Name Core */}
+          <div className="universe-center-anchor universe-name-core">
             <div className="portrait-warm-halo"></div>
-            <img
-              src="/assets/images/shabeeb-standing.png"
-              alt="Shabeeb Ahammed KT"
-              className="portrait-standing-img"
-            />
-            <div className="portrait-anchor-badge">
-              <span className="portrait-live-beacon"></span>
-              <span className="portrait-badge-text">Shabeeb Ahammed • Full Stack Engineer</span>
+            <div className="universe-core-emblem">
+              <span className="core-initials">SK</span>
+              <div className="core-ring-pulse"></div>
+            </div>
+            <div className="universe-core-details">
+              <span className="universe-core-kicker">ENGINEERING ARCHITECT</span>
+              <h3 className="universe-core-name">Shabeeb Ahammed KT</h3>
+              <div className="universe-core-tag">
+                <span className="portrait-live-beacon"></span>
+                <span>Full Stack Python &amp; Next.js Specialist</span>
+              </div>
             </div>
           </div>
 
