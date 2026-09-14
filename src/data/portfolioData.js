@@ -5,6 +5,7 @@ export const PORTFOLIO_CONFIG = {
   email: "shabeebahammedkt@gmail.com",
   phone: "+91 9000000000",
   rawPhone: "9000000000",
+
   location: "Pattambi / Malappuram, Kerala, India",
   github: "https://github.com/shabeebss",
   githubUser: "shabeebss",
