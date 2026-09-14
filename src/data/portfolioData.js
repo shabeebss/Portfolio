@@ -96,6 +96,7 @@ export const PROJECTS = [
     categoryLabel: "Enterprise",
     image: "/assets/images/project-dashboard.jpg",
     description: "Enterprise ERP & e-commerce platform supporting multi-location inventory, purchasing workflows, sales tracking, and double-entry financial ledger accounting. Built with Django REST APIs, Next.js, PrimeReact, batch tracking, KPI reporting, and Razorpay gateway integration.",
+    shortDescription: "Enterprise multi-location ERP with automated FIFO batch valuation, balanced double-entry accounting ledgers, and secure Razorpay payment integration.",
     tech: ["Python", "Django REST", "Next.js", "TypeScript", "PrimeReact", "PostgreSQL", "Razorpay"],
     github: "https://github.com/shabeebss",
     caseStudy: {
@@ -132,6 +133,7 @@ export const PROJECTS = [
     categoryLabel: "AI / Vision",
     image: "/assets/images/project-home360.jpg",
     description: "Deep learning–powered intelligent surveillance system capable of detecting unauthorized persons, weapons, animals, and fire in real-time video streams using CNN, YOLO, and suspicious activity anomaly detection algorithms.",
+    shortDescription: "Deep learning surveillance engine detecting unauthorized intruders, weapons, and fire hazards in real-time video feeds using custom YOLOv8 and OpenCV.",
     tech: ["Python", "Django", "YOLO", "CNN", "OpenCV", "Deep Learning"],
     github: "https://github.com/shabeebss",
     caseStudy: {
@@ -168,6 +170,7 @@ export const PROJECTS = [
     categoryLabel: "Web App",
     image: "/assets/images/project-taxifare.jpg",
     description: "Full-stack taxi fare calculator and ride booking platform with vehicle selection, distance-based dynamic pricing algorithm, Google Maps route integration, dynamic QR code billing, and Razorpay gateway integration.",
+    shortDescription: "Full-stack ride booking platform featuring distance-based dynamic pricing algorithms, Google Maps polyline routing, and instant UPI QR billing.",
     tech: ["Django", "React.js", "Google Maps API", "Razorpay", "QR Billing"],
     github: "https://github.com/shabeebss",
     caseStudy: {

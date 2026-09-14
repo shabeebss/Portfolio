@@ -4,9 +4,7 @@ import { THEMES } from '../data/portfolioData';
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-  const [currentTheme, setCurrentTheme] = useState(() => {
-    return localStorage.getItem('portfolio-theme') || 'midnight';
-  });
+  const [currentTheme, setCurrentTheme] = useState('warm-paper');
 
   const changeTheme = (themeId) => {
     setCurrentTheme(themeId);
@@ -15,8 +13,11 @@ export const ThemeProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', currentTheme);
-  }, [currentTheme]);
+    // Fixed Warm Editorial Theme
+    setCurrentTheme('warm-paper');
+    localStorage.setItem('portfolio-theme', 'warm-paper');
+    document.documentElement.setAttribute('data-theme', 'warm-paper');
+  }, []);
 
   return (
     <ThemeContext.Provider value={{ currentTheme, changeTheme, themes: THEMES }}>

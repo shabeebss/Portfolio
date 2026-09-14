@@ -33,10 +33,60 @@
 }
 
 /* ════════════════════════════════════════════════════════════
-   1. MIDNIGHT EMERALD (Default Dark)
+   1. WARM EDITORIAL (Fixed & Default Theme — Warm Champagne & Amber Light)
    ════════════════════════════════════════════════════════════ */
-[data-theme="midnight"],
+[data-theme="warm-paper"],
 :root {
+  --theme-mode: light;
+  --bg-primary: #faf7f2;
+  --bg-secondary: #f3ede4;
+  --bg-surface: #ffffff;
+  --bg-surface-hover: #eae1d3;
+  --bg-card: rgba(255, 255, 255, 0.94);
+  --bg-card-hover: #ffffff;
+  --bg-glass: rgba(250, 247, 242, 0.9);
+
+  --text-primary: #292524;
+  --text-secondary: #57534e;
+  --text-tertiary: #78716c;
+  --text-inverse: #ffffff;
+
+  --accent: #d97706;
+  --accent-rgb: 217, 119, 6;
+  --accent-hover: #b45309;
+  --accent-subtle: rgba(217, 119, 6, 0.1);
+  --accent-secondary: #e11d48;
+  --accent-secondary-rgb: 225, 29, 72;
+
+  --border: rgba(41, 37, 36, 0.1);
+  --border-hover: rgba(41, 37, 36, 0.22);
+  --border-accent: rgba(217, 119, 6, 0.4);
+
+  --gradient-hero: radial-gradient(circle at 50% 0%, #fef3c7 0%, #f3ede4 50%, #faf7f2 100%);
+  --gradient-accent: linear-gradient(135deg, #d97706 0%, #e11d48 100%);
+  --gradient-card: linear-gradient(145deg, #ffffff, #faf7f2);
+  --gradient-text: linear-gradient(135deg, #b45309 0%, #d97706 50%, #e11d48 100%);
+
+  --particle-color: rgba(217, 119, 6, 0.4);
+  --particle-line: rgba(225, 29, 72, 0.1);
+  --glow-color: rgba(217, 119, 6, 0.14);
+  --spotlight-color: rgba(217, 119, 6, 0.08);
+
+  --nav-bg: rgba(250, 247, 242, 0.88);
+  --nav-border: rgba(41, 37, 36, 0.08);
+
+  --scrollbar-track: #f3ede4;
+  --scrollbar-thumb: #d6cbbe;
+  --scrollbar-thumb-hover: #b5a494;
+
+  --code-bg: #1c1917;
+  --terminal-header: #292524;
+}
+
+/* ════════════════════════════════════════════════════════════
+   2. MIDNIGHT EMERALD (Dark Preset)
+   ════════════════════════════════════════════════════════════ */
+[data-theme="midnight"] {
   --theme-mode: dark;
   --bg-primary: #080c14;
   --bg-secondary: #0e1422;

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { PORTFOLIO_CONFIG } from '../data/portfolioData';
-import { ThemeSwitcher } from './ThemeSwitcher';
+import { ShinyText } from './reactbits/ShinyText';
+import { Magnet } from './reactbits/Magnet';
 
 export const Navbar = () => {
   const [activeSection, setActiveSection] = useState('hero');
@@ -31,6 +32,25 @@ export const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') setMobileMenuOpen(false);
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [mobileMenuOpen]);
+
   const navLinks = [
     { label: 'Home', href: '#hero', id: 'hero' },
     { label: 'About', href: '#about', id: 'about' },
@@ -51,93 +71,85 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className={`nav ${isScrolled ? 'nav-scrolled' : ''}`} id="nav" aria-label="Main navigation">
-      <div className="container nav-inner">
+    <header className={`floating-nav-wrapper ${isScrolled ? 'nav-scrolled' : ''}`}>
+      <nav className="floating-nav-dock" id="nav" aria-label="Main navigation">
         <a href="#hero" className="nav-logo" onClick={(e) => handleLinkClick(e, '#hero')}>
-          <span className="logo-dot"></span>
-          {PORTFOLIO_CONFIG.name}
+          <span className="logo-beacon">
+            <span className="logo-dot"></span>
+          </span>
+          <span className="logo-name">
+            <ShinyText shimmerColor="#d97706" speed={3.5}>
+              Shabeeb Ahammed
+            </ShinyText>
+          </span>
         </a>
 
-        {/* Desktop Navigation */}
+        {/* Desktop Navigation Links */}
         <ul className="nav-links">
-          {navLinks.map((link) => (
-            <li key={link.id}>
-              <a
-                href={link.href}
-                className={`nav-link ${activeSection === link.id ? 'active' : ''}`}
-                onClick={(e) => handleLinkClick(e, link.href)}
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = activeSection === link.id;
+            return (
+              <li key={link.id}>
+                <a
+                  href={link.href}
+                  className={`nav-link-pill ${isActive ? 'active' : ''}`}
+                  onClick={(e) => handleLinkClick(e, link.href)}
+                >
+                  {link.label}
+                  {isActive && <span className="nav-active-glow" />}
+                </a>
+              </li>
+            );
+          })}
         </ul>
 
         <div className="nav-actions">
-          {/* Multi-Theme Switcher */}
-          <ThemeSwitcher />
+          {/* Magnet CTA Button */}
+          <Magnet magnetStrength={0.3} activeRadius={80}>
+            <a
+              href="#contact"
+              className="btn-lets-talk"
+              onClick={(e) => handleLinkClick(e, '#contact')}
+              style={{ display: 'inline-flex', padding: '6px 16px', fontSize: '0.75rem' }}
+            >
+              <span>LET'S TALK &rarr;</span>
+            </a>
+          </Magnet>
 
           {/* Mobile Hamburger Toggle */}
           <button
             className={`hamburger ${mobileMenuOpen ? 'active' : ''}`}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle mobile menu"
+            aria-expanded={mobileMenuOpen}
           >
             <span></span>
             <span></span>
             <span></span>
           </button>
         </div>
-      </div>
+      </nav>
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div
-          className="mobile-menu-drawer animate-fade-in"
-          style={{
-            position: 'fixed',
-            top: 'var(--nav-height)',
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: 'var(--bg-glass)',
-            backdropFilter: 'blur(20px)',
-            padding: '24px 20px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '16px',
-            zIndex: 999,
-            overflowY: 'auto'
-          }}
-        >
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            {navLinks.map((link) => (
-              <a
-                key={link.id}
-                href={link.href}
-                onClick={(e) => handleLinkClick(e, link.href)}
-                style={{
-                  padding: '14px 18px',
-                  borderRadius: 'var(--radius-sm)',
-                  fontSize: '1.05rem',
-                  fontWeight: 600,
-                  color: activeSection === link.id ? 'var(--accent)' : 'var(--text-primary)',
-                  background: activeSection === link.id ? 'var(--accent-subtle)' : 'transparent',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  textDecoration: 'none'
-                }}
-              >
-                <span>{link.label}</span>
-                {activeSection === link.id && (
-                  <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--accent)' }}></span>
-                )}
-              </a>
-            ))}
+        <div className="mobile-menu-drawer animate-fade-in" onClick={() => setMobileMenuOpen(false)}>
+          <div className="mobile-menu-inner" onClick={(e) => e.stopPropagation()}>
+            <div className="mobile-menu-links">
+              {navLinks.map((link) => (
+                <a
+                  key={link.id}
+                  href={link.href}
+                  onClick={(e) => handleLinkClick(e, link.href)}
+                  className={`mobile-nav-link ${activeSection === link.id ? 'active' : ''}`}
+                >
+                  <span>{link.label}</span>
+                  {activeSection === link.id && <span className="mobile-nav-indicator"></span>}
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       )}
-    </nav>
+    </header>
   );
 };

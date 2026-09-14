@@ -1,50 +1,103 @@
-import React, { useEffect, useRef } from 'react';
-import { Briefcase, Milestone, Mail, FileDown } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Briefcase, Milestone, Mail, FileDown, Terminal as TerminalIcon, User, Sparkles } from 'lucide-react';
+import confetti from 'canvas-confetti';
 import { PORTFOLIO_CONFIG, TYPING_TITLES } from '../data/portfolioData';
 import { useTypingEffect } from '../hooks/useTypingEffect';
 import { useToast } from '../context/ToastContext';
+import { InteractiveTerminal } from './InteractiveTerminal';
+import { DecryptedText } from './reactbits/DecryptedText';
+import { ShinyText } from './reactbits/ShinyText';
+import { Magnet } from './reactbits/Magnet';
 
 export const Hero = () => {
   const canvasRef = useRef(null);
+  const heroRef = useRef(null);
   const typedText = useTypingEffect(TYPING_TITLES, 65, 35, 2000);
   const { addToast } = useToast();
+  const [visualMode, setVisualMode] = useState('profile'); // 'profile' | 'terminal'
 
-  // Particle background animation
+  // Interactive Particle Background Animation with Cursor Constellation
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    const heroElem = heroRef.current;
+    if (!canvas || !heroElem) return;
 
     const ctx = canvas.getContext('2d');
     let animationFrameId;
     let particles = [];
+    let mouse = { x: -9999, y: -9999, radius: 140 };
+    let shockwaves = [];
 
     const resize = () => {
-      canvas.width = canvas.parentElement.offsetWidth;
-      canvas.height = canvas.parentElement.offsetHeight;
+      canvas.width = heroElem.offsetWidth;
+      canvas.height = heroElem.offsetHeight;
       initParticles();
     };
 
     const initParticles = () => {
       particles = [];
-      const count = Math.min(Math.floor((canvas.width * canvas.height) / 14000), 75);
+      const count = Math.min(Math.floor((canvas.width * canvas.height) / 13000), 80);
       for (let i = 0; i < count; i++) {
         particles.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          vx: (Math.random() - 0.5) * 0.7,
-          vy: (Math.random() - 0.5) * 0.7,
-          radius: Math.random() * 1.8 + 1
+          baseX: Math.random() * canvas.width,
+          baseY: Math.random() * canvas.height,
+          vx: (Math.random() - 0.5) * 0.75,
+          vy: (Math.random() - 0.5) * 0.75,
+          radius: Math.random() * 2 + 1,
+          glow: Math.random() > 0.65
         });
       }
+    };
+
+    const handleMouseMove = (e) => {
+      const rect = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+    };
+
+    const handleMouseLeave = () => {
+      mouse.x = -9999;
+      mouse.y = -9999;
+    };
+
+    const handleClick = (e) => {
+      const rect = canvas.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const clickY = e.clientY - rect.top;
+      shockwaves.push({
+        x: clickX,
+        y: clickY,
+        radius: 5,
+        maxRadius: 160,
+        opacity: 0.65
+      });
     };
 
     const render = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Get current theme color from computed styles
       const computedStyle = getComputedStyle(document.documentElement);
-      const particleColor = computedStyle.getPropertyValue('--accent') || '#10b981';
-      const lineColor = computedStyle.getPropertyValue('--accent-secondary') || '#38bdf8';
+      const particleColor = (computedStyle.getPropertyValue('--accent') || '#10b981').trim();
+      const lineColor = (computedStyle.getPropertyValue('--accent-secondary') || '#38bdf8').trim();
+
+      // Render expanding shockwaves
+      for (let s = shockwaves.length - 1; s >= 0; s--) {
+        const sw = shockwaves[s];
+        ctx.beginPath();
+        ctx.arc(sw.x, sw.y, sw.radius, 0, Math.PI * 2);
+        ctx.strokeStyle = particleColor;
+        ctx.globalAlpha = sw.opacity;
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        sw.radius += 4;
+        sw.opacity *= 0.94;
+        if (sw.opacity < 0.02 || sw.radius >= sw.maxRadius) {
+          shockwaves.splice(s, 1);
+        }
+      }
 
       // Update and draw particles
       for (let i = 0; i < particles.length; i++) {
@@ -52,28 +105,52 @@ export const Hero = () => {
         p.x += p.vx;
         p.y += p.vy;
 
+        // Bounce on boundary
         if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
         if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
 
+        // Mouse proximity interaction (gentle attraction / constellation strand)
+        const dxMouse = mouse.x - p.x;
+        const dyMouse = mouse.y - p.y;
+        const distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
+
+        if (distMouse < mouse.radius) {
+          // Constellation web connector to cursor
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.strokeStyle = particleColor;
+          ctx.globalAlpha = (1 - distMouse / mouse.radius) * 0.45;
+          ctx.lineWidth = 1.2;
+          ctx.stroke();
+
+          // Subtle attraction spring
+          const force = (1 - distMouse / mouse.radius) * 0.4;
+          p.x += (dxMouse / distMouse) * force;
+          p.y += (dyMouse / distMouse) * force;
+        }
+
+        // Draw particle dot
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = particleColor.trim();
-        ctx.globalAlpha = 0.4;
+        ctx.fillStyle = p.glow ? particleColor : lineColor;
+        ctx.globalAlpha = p.glow ? 0.75 : 0.4;
         ctx.fill();
 
-        // Connect nearby particles
+        // Connect adjacent particles
         for (let j = i + 1; j < particles.length; j++) {
           const p2 = particles[j];
           const dx = p.x - p2.x;
           const dy = p.y - p2.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
 
-          if (dist < 110) {
+          if (dist < 115) {
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = lineColor.trim();
-            ctx.globalAlpha = (1 - dist / 110) * 0.15;
+            ctx.strokeStyle = lineColor;
+            ctx.globalAlpha = (1 - dist / 115) * 0.18;
+            ctx.lineWidth = 0.8;
             ctx.stroke();
           }
         }
@@ -84,51 +161,94 @@ export const Hero = () => {
     };
 
     window.addEventListener('resize', resize);
+    heroElem.addEventListener('mousemove', handleMouseMove);
+    heroElem.addEventListener('mouseleave', handleMouseLeave);
+    heroElem.addEventListener('click', handleClick);
+
     resize();
     render();
 
     return () => {
       window.removeEventListener('resize', resize);
+      heroElem.removeEventListener('mousemove', handleMouseMove);
+      heroElem.removeEventListener('mouseleave', handleMouseLeave);
+      heroElem.removeEventListener('click', handleClick);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
 
   const handleDownloadResume = () => {
+    try {
+      confetti({
+        particleCount: 80,
+        spread: 75,
+        origin: { y: 0.65 }
+      });
+    } catch (e) {
+      // Confetti fallback
+    }
     addToast('Downloading Curriculum Vitae...', 'success');
   };
 
   return (
-    <section className="hero section" id="hero">
+    <section className="hero section" id="hero" ref={heroRef}>
       <div className="hero-bg"></div>
-      <canvas ref={canvasRef} id="particles-canvas" style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}></canvas>
+      <canvas
+        ref={canvasRef}
+        id="particles-canvas"
+        style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}
+      ></canvas>
 
       <div className="container hero-content">
         <div className="hero-text">
-          <div className="hero-greeting">
-            <span>Hello, I'm</span>
+          {/* Live Status Pill with ShinyText */}
+          <div className="hero-status-pill" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 16px', borderRadius: '9999px', background: 'var(--accent-subtle)', border: '1px solid var(--border-accent)', marginBottom: '16px' }}>
+            <span className="live-dot" style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--accent)', boxShadow: '0 0 10px var(--accent)', animation: 'pulseGlow 2s infinite' }}></span>
+            <ShinyText shimmerColor="#d97706" speed={3}>
+              <span style={{ fontSize: '0.78rem', fontWeight: '800', letterSpacing: '1.5px', textTransform: 'uppercase', color: 'var(--accent)' }}>
+                AVAILABLE FOR ENTERPRISE &amp; AI ROLES
+              </span>
+            </ShinyText>
           </div>
 
-          <h1 className="hero-name gradient-text">{PORTFOLIO_CONFIG.name}</h1>
+          <h1 className="hero-name-editorial">
+            <DecryptedText
+              text="Shabeeb Ahammed KT"
+              speed={35}
+              maxIterations={16}
+              animateOn="hover"
+            />
+          </h1>
 
-          <div className="hero-title-wrapper" style={{ minHeight: '36px' }}>
+          <div className="hero-headline-sub">
+            Full Stack <span className="gradient-text">Python &amp; Next.js</span> Engineer
+          </div>
+
+          <div className="hero-title-wrapper">
+            <span className="terminal-prompt-sym">&gt;</span>
             <span className="hero-typed">{typedText}</span>
-            <span className="typed-cursor">|</span>
+            <span className="typed-cursor">_</span>
           </div>
 
           <p className="hero-description">
-            Python Django Backend & Full Stack Engineer engineering scalable enterprise ERP workflows, high-throughput REST APIs,
-            modern Next.js interfaces, and real-time computer vision AI systems.
+            Architecting scalable enterprise ERP workflows, high-throughput Django REST APIs (sub-45ms P95),
+            and real-time YOLOv8 computer vision models with high-performance Next.js interfaces.
           </p>
 
           <div className="hero-actions">
-            <a href="#projects" className="btn btn-primary magnetic">
-              <Briefcase size={18} />
-              View Engineering Work
-            </a>
-            <a href="#experience" className="btn btn-secondary magnetic">
-              <Milestone size={18} />
-              Experience Roadmap
-            </a>
+            <Magnet magnetStrength={0.25} activeRadius={100}>
+              <a href="#projects" className="btn btn-primary magnetic">
+                <Briefcase size={18} />
+                Explore Engineering Work
+              </a>
+            </Magnet>
+
+            <Magnet magnetStrength={0.25} activeRadius={100}>
+              <a href="#experience" className="btn btn-secondary magnetic">
+                <Milestone size={18} />
+                Career Milestones
+              </a>
+            </Magnet>
           </div>
 
           <div className="hero-socials">
@@ -184,36 +304,116 @@ export const Hero = () => {
               </svg>
             </a>
 
-            {/* Resume Download */}
+            {/* Resume Download with Confetti */}
             <a
               href={PORTFOLIO_CONFIG.resumePath}
               download="Shabeeb_Resume.pdf"
               onClick={handleDownloadResume}
               className="btn-icon magnetic"
               aria-label="Download Resume"
-              title="Download CV (PDF)"
+              title="Download CV (PDF) & Confetti"
             >
               <FileDown size={19} />
             </a>
           </div>
         </div>
 
+        {/* Visual Right Column: Interactive Mode Switcher & Content */}
         <div className="hero-visual">
-          <div className="profile-frame">
-            <div className="profile-image">
-              <img
-                src={PORTFOLIO_CONFIG.profileImage}
-                alt={`${PORTFOLIO_CONFIG.name} — Full Stack Developer`}
-                loading="eager"
-              />
-            </div>
-            <div className="profile-badge">
-              <span className="status-dot success"></span>
-              {PORTFOLIO_CONFIG.status.text}
-            </div>
+          <div className="hero-visual-toggle-bar">
+            <button
+              type="button"
+              className={`visual-toggle-pill ${visualMode === 'terminal' ? 'active' : ''}`}
+              onClick={() => setVisualMode('terminal')}
+            >
+              <TerminalIcon size={14} />
+              <span>Live Terminal</span>
+            </button>
+            <button
+              type="button"
+              className={`visual-toggle-pill ${visualMode === 'profile' ? 'active' : ''}`}
+              onClick={() => setVisualMode('profile')}
+            >
+              <User size={14} />
+              <span>Profile Showcase</span>
+            </button>
           </div>
+
+          {visualMode === 'terminal' ? (
+            <InteractiveTerminal />
+          ) : (
+            <div className="hero-profile-showcase animate-scale-in">
+              <div className="hero-ambient-aura" />
+
+              <div className="executive-card">
+                {/* Header with Live Status & Role Tag */}
+                <div className="executive-card-header">
+                  <div className="executive-status-tag">
+                    <span className="pulse-dot"></span>
+                    <span>{PORTFOLIO_CONFIG.status.text}</span>
+                  </div>
+                  <div className="executive-role-pill">Full Stack Engineer</div>
+                </div>
+
+                {/* Squircle Framed Portrait with Lighting Sheen */}
+                <div className="executive-portrait-wrapper">
+                  <div className="portrait-squircle-ring">
+                    <img
+                      src={PORTFOLIO_CONFIG.profileImage}
+                      alt={`${PORTFOLIO_CONFIG.name} — Full Stack Developer`}
+                      className="executive-portrait-img"
+                      loading="eager"
+                    />
+                    <div className="portrait-sheen"></div>
+                  </div>
+                </div>
+
+                {/* Developer Identity */}
+                <div className="executive-identity">
+                  <h3 className="executive-name">{PORTFOLIO_CONFIG.name}</h3>
+                  <p className="executive-spec">Full Stack Python &amp; Next.js Architecture</p>
+                </div>
+
+                {/* Redesigned Core Competency Titles Dock */}
+                <div className="executive-skills-dock">
+                  <div className="dock-chip" title="Enterprise Backend Architecture">
+                    <span className="dock-dot emerald"></span>
+                    <div className="dock-info">
+                      <span className="dock-title">Django REST</span>
+                      <span className="dock-sub">Python Enterprise</span>
+                    </div>
+                  </div>
+
+                  <div className="dock-chip" title="Modern Frontend Engineering">
+                    <span className="dock-dot cyan"></span>
+                    <div className="dock-info">
+                      <span className="dock-title">Next.js 14</span>
+                      <span className="dock-sub">React &amp; App Router</span>
+                    </div>
+                  </div>
+
+                  <div className="dock-chip" title="High-Performance Relational DB">
+                    <span className="dock-dot amber"></span>
+                    <div className="dock-info">
+                      <span className="dock-title">PostgreSQL 16</span>
+                      <span className="dock-sub">High-Scale Data</span>
+                    </div>
+                  </div>
+
+                  <div className="dock-chip" title="Computer Vision & Real-Time AI">
+                    <span className="dock-dot purple"></span>
+                    <div className="dock-info">
+                      <span className="dock-title">YOLOv8</span>
+                      <span className="dock-sub">Computer Vision AI</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </section>
   );
 };
+

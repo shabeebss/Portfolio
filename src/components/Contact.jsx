@@ -59,6 +59,28 @@ export const Contact = () => {
     }, 1000);
   };
 
+  const handleCopyEmail = () => {
+    copyToClipboard(PORTFOLIO_CONFIG.email, 'Email');
+    try {
+      confetti({
+        particleCount: 45,
+        spread: 55,
+        origin: { y: 0.85 }
+      });
+    } catch (err) {}
+  };
+
+  const handleDownloadCV = () => {
+    addToast('Downloading Curriculum Vitae...', 'success');
+    try {
+      confetti({
+        particleCount: 70,
+        spread: 65,
+        origin: { y: 0.85 }
+      });
+    } catch (err) {}
+  };
+
   return (
     <section className="section" id="contact" style={{ background: 'var(--bg-secondary)' }}>
       <div className="container">
@@ -91,7 +113,7 @@ export const Contact = () => {
                 <button
                   type="button"
                   className="contact-card-action-btn"
-                  onClick={() => copyToClipboard(PORTFOLIO_CONFIG.email, 'Email')}
+                  onClick={handleCopyEmail}
                   title="Copy email to clipboard"
                 >
                   <Copy size={13} />
@@ -130,7 +152,7 @@ export const Contact = () => {
                 download="Shabeeb_Resume.pdf"
                 className="contact-action-card spotlight-card"
                 style={{ textDecoration: 'none' }}
-                onClick={() => addToast('Downloading Curriculum Vitae...', 'success')}
+                onClick={handleDownloadCV}
               >
                 <div className="contact-card-left">
                   <div className="contact-card-icon">
